@@ -6,11 +6,15 @@ const zipFolder = require('zip-folder');
 const fs = require("fs")
 const fse = require("fs-extra")
 
+router.get("/", (req, res) => {
+  res.send("Snippet manager");
+})
+
 router.get("/:snippet/check", async (req, res) => {
   const { snippet } = req.params
   const repository = dependencies[snippet]
   const snippetZipDir = `./${snippet}.zip`
-
+  fse.removeSync("repo");
   if (!repository) {
     return res.status(503).send({
       message: "Not found repository"
@@ -26,7 +30,8 @@ router.get("/:snippet/check", async (req, res) => {
   `);
 
   if (execTest.err) {
-    return res.status(500).send(execTest.err);
+    console.log(execTest.err)
+    return res.status(500).send("Script failed");
   }
 
   zipFolder('./repo', snippetZipDir, function(err) {
