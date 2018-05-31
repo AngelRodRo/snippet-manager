@@ -10,7 +10,7 @@ module.exports.authenticate =  (req, res, next)  => {
     if (err) { 
       return res.sendStatus(401);
     }
-    req.headers.user = decoded;
+    req.headers.author = decoded;
     next();
   })
 }

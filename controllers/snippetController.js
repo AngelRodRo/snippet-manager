@@ -8,11 +8,11 @@ module.exports = {
     async create(req, res) {
         try {
             const { name, github } = req.body
-            const authorId = ""
+            const { author } = req.headers
             const snippet = await Snippet.create({
                 name,
                 github,
-                authorId
+                authorId: author._id
             })
             return res.json(snippet)
         } catch (error) {
@@ -31,14 +31,14 @@ module.exports = {
     },
     async check(req, res) {
         const { snippet } = req.params
-        const snippet = await Snippet.find({ name: snippet })
-        const repository = snippet.github
-        
+        const _snippet = await Snippet.find({ name: snippet })
+        const repository = _snippet.github
+
         const snippetZipDir = `./${snippet}.zip`
         fse.removeSync("repo");
         if (!repository) {
             return res.status(503).send({
-            message: "Not found repository"
+                message: "Not found repository"
             });
         }
 
