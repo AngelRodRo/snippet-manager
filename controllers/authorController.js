@@ -1,5 +1,6 @@
 const Author = require("../models/Author")
-
+const jwt = require("jsonwebtoken")
+const config = require("../config")
 module.exports = {
     async create(req, res) {
         try {
@@ -20,8 +21,10 @@ module.exports = {
     async login(req, res) {
         const { email, password } = req.body
         try {
-            const author = await Author.login({ email, password })
-            return res.json(author)            
+            const author = await Author.login(email, password)
+            const token = jwt.sign(author, config.secret);
+            author.token = token;
+            return res.json(author);     
         } catch (error) {
             return res.status(500).send(error)
         }
