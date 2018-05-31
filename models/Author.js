@@ -1,9 +1,7 @@
-import { mongo } from "mongoose";
-
 const mongoose = require("mongoose")
 const { Schema } = mongoose
 const bcrypt = require("bcrypt")
-const salts = 10
+const saltRounds = 10
 
 const authorSchema = new Schema({
     firstName: String,
@@ -13,13 +11,21 @@ const authorSchema = new Schema({
     github: String
 })
 
-authorSchema.statics.register = () => {
-    const password = ""
-    bcrypt.genSalt(10, () => {
-        bcrypt.hash(password, salt, (err, hash) => {
+authorSchema.pre("save", function(next) {
+	const salt = bcrypt.genSaltSync(saltRounds);
+	const hash = bcrypt.hashSync(this.password, salt);
+	this.password = hash;
+	next();
+});
 
-        })
-    })
+authorSchema.statics.login = async function (email, password) {
+    const user = await this.findOne({ email }).exec()
+    if (!user) return user;
+    const comp = await bcrypt.compare(password, user.password)
+    let _user = user._doc;
+    delete _user.password;
+    _user.logged = comp;
+    return _user;
 }
 
 module.exports = mongoose.model("Author", authorSchema);

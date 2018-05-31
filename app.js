@@ -5,8 +5,18 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
+const snippetRouter = require("./routes/snippet")
+const authorRouter = require("./routes/author")
+const mongoose = require("mongoose")
 
 const app = express();
+
+mongoose.connect("mongodb://localhost:27017/snippet-manager",(err) => {
+  if (err) {
+    console.log(err)
+  }
+  return console.log("connected")
+}) 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,6 +29,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use("/snippet", snippetRouter);
+app.use("/author", authorRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
