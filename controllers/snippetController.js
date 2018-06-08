@@ -31,7 +31,7 @@ module.exports = {
     },
     async check(req, res) {
         const { snippet } = req.params
-        const _snippet = await Snippet.find({ name: snippet })
+        const _snippet = await Snippet.findOne({ name: snippet })
         const repository = _snippet.github
 
         const snippetZipDir = `./${snippet}.zip`
