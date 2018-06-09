@@ -6,7 +6,7 @@ Vue.use(VueResource)
 const HOST = process.env.API_HOST;
 
 export default {
-    register(payload) {
+    create(payload) {
         return Vue.http.post(`${HOST}/author`, payload);
     },
     login(credentials) {

@@ -1,10 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
 
-import PageNotFoundView from "../views/PageNotFoundView";
-
-const ForgotPasswordView = () => import(/* webpackChunkName: "sign-view-group" */ "../views/ForgotPasswordView");
-const LoginView = () => import("../views/Login.vue")
+import LoginView from "../views/Login";
+import IndexView from "../views/Index";
+import RegisterView from "../views/Register";
 
 Vue.use(Router);
 
@@ -13,12 +12,27 @@ export default new Router({
     scrollBehavior: () => ({ y: 0 }),
     routes: [
         {
+            path: "/",
+            component: IndexView,
+            name: "indexView",
+            meta: {
+                title: "Home"
+            }
+        },
+        {
             path: "/login",
             component: LoginView,
             name: "loginView",
             meta: {
-                title: "Login",
-                checkAuth: true
+                title: "Login"
+            }
+        },
+        {
+            path: "/register",
+            component: RegisterView,
+            name: "registerView",
+            meta: {
+                title: "Register"
             }
         },
         {

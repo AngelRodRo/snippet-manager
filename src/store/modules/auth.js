@@ -7,7 +7,7 @@ const state = {
 
 const actions = {
     login({ commit }, credentials) {
-        authorDS.login(credentials)
+        return authorDS.login(credentials)
     }
 }
 
