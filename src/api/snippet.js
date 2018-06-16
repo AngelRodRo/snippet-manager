@@ -3,13 +3,13 @@ import VueResource from "vue-resource";
 
 Vue.use(VueResource)
 
-const HOST = process.env.API_HOST;
+const HOST = "http://localhost:3000";
 
 export default {
     list(payload) {
-        return Vue.http.get(`${HOST}/snippet`, payload);
+        return Vue.http.get(`${HOST}/api/snippet`, payload).then(response => response.data);
     },
     create(credentials) {
-        return Vue.http.post(`${HOST}/snippet`, credentials)
+        return Vue.http.post(`${HOST}/api/snippet`, credentials);
     }
 }

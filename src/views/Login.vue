@@ -3,41 +3,38 @@
         <form action="">
             <div>
                 <label for="">Email</label>
-                <input v-model="email" type="email">
+                <input v-model="credentials.email" type="email">
             </div>
             <div>
                 <label for="">Password</label>
-                <input v-model="password" type="password">
+                <input v-model="credentials.password" type="password">
             </div>
             <div>
-                <input type="submit" value="Sign in">
+                <input type="button" @click="signIn" value="Sign in">
             </div>
         </form>
     </div>
 </template>
 <script>
-    import { mapGetters } from "vuex";
+    import { mapActions } from "vuex";
 
     export default {
         name: "LoginView",
-        computed: {
-            ...mapGetters({
-                login: "login"
-            })
-        },
         data() {
             return {
-                email: "",
-                password: ""
+                credentials: {
+                    email: "",
+                    password: ""
+                }
             }
         },
         methods: {
+            ...mapActions({
+                login: "login"
+            }),
             async signIn() {
-                const credentials = {
-                    email: this.email,
-                    password: this.password
-                }
-                await this.login(credentials)
+                const credentials = this.credentials;
+                await this.login(credentials);
             }
         }
     }

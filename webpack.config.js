@@ -1,11 +1,18 @@
 var path = require('path')
 var webpack = require('webpack')
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const fs = require("fs")
+const { resolve } = require("path");
 
 module.exports = {
-  entry: './src/main.js',
+  entry: {
+    app: [
+        "babel-polyfill",
+        resolve(__dirname, "src/main.js")
+    ]
+  },
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    path: path.resolve(__dirname, './public'),
     filename: 'build.js'
   },
   module: {
@@ -55,7 +62,43 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      inject: true,
+      templateContent(templateParams) {
+          const indexTemplate = fs.readFileSync(resolve(__dirname, "index.html"), "utf8");          
+          const tmpl = require("blueimp-tmpl");
+
+          return tmpl(indexTemplate, templateParams);
+      },
+      minify: {
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+          minifyURLs: true,
+          removeComments: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: false
+          // more options:
+          // https://github.com/kangax/html-minifier#options-quick-reference
+      },
+      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      chunksSortMode: "dependency"
+    }),
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      inject: true,
+      templateContent(templateParams) {
+          const indexTemplate = fs.readFileSync(resolve(__dirname, "index.html"), "utf8");
+          const tmpl = require("blueimp-tmpl");
+
+          return tmpl(indexTemplate, templateParams);
+      },
+      chunksSortMode: "dependency"
+    })
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {

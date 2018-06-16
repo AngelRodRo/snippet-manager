@@ -4,6 +4,7 @@ import Router from "vue-router";
 import LoginView from "../views/Login";
 import IndexView from "../views/Index";
 import RegisterView from "../views/Register";
+import SnippetRegisterView from "../views/snippet/Register";
 
 Vue.use(Router);
 
@@ -36,8 +37,12 @@ export default new Router({
             }
         },
         {
-            path: "*",
-            redirect: "/cc/dash"
+            path: "/snippet/register",
+            component: SnippetRegisterView,
+            name: "snippetRegisterView",
+            meta: {
+                title: "Snippet Register"
+            }
         }
     ]
 });

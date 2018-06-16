@@ -17,7 +17,7 @@
             <input v-model="author.password" type="password">
         </div>
         <div>
-            <input type="submit" value="Register">
+            <input @click="registerAuthor" type="button" value="Register">
         </div>
     </form>
 </template>
@@ -41,7 +41,8 @@
             }),
             async registerAuthor() {
                 const payload = this.author;
-                await this.createAuthor(author);
+                debugger
+                await this.createAuthor(payload);
             }
         }
     }

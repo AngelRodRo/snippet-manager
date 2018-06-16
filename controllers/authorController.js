@@ -26,8 +26,17 @@ module.exports = {
             author.token = token;
             return res.json(author);     
         } catch (error) {
+            console.log(error)
             return res.status(500).send(error)
         }
-
+    },
+    async getOne(req, res) {
+        const { id } = req.params;
+        try {
+            const author = await Author.getOne({ _id: id });
+            return author;
+        } catch (error) {
+            return res.status(500).send(error)
+        }
     }
 }

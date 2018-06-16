@@ -8,7 +8,11 @@ const authorSchema = new Schema({
     lastName: String,
     email: String,
     password: String,
-    github: String
+    github: String,
+    createdAt: {
+        type: Date,
+        default: new Date
+    }
 })
 
 authorSchema.pre("save", function(next) {

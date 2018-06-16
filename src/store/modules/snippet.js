@@ -14,9 +14,12 @@ const mutations = {
 const actions = {
     listSnippets({ state, commit }) {
         return snippetDS.list()
-            .then(({ snippets }) => {
+            .then((snippets) => {
                 commit("SET_SNIPPETS", snippets)
             })
+    },
+    createSnippet({ state }, payload) {
+        return snippetDS.create(payload);
     }
 }
 
