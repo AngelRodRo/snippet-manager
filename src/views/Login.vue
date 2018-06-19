@@ -1,16 +1,16 @@
 <template>
-    <div>
+    <div class="container">
         <form action="">
-            <div>
+            <div class="form-group">
                 <label for="">Email</label>
-                <input v-model="credentials.email" type="email">
+                <input class="form-control" v-model="credentials.email" type="email">
             </div>
-            <div>
+            <div class="form-group">
                 <label for="">Password</label>
-                <input v-model="credentials.password" type="password">
+                <input class="form-control" v-model="credentials.password" type="password">
             </div>
             <div>
-                <input type="button" @click="signIn" value="Sign in">
+                <input class="btn btn-primary" type="button" @click="signIn" value="Sign in">
             </div>
         </form>
     </div>

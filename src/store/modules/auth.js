@@ -53,8 +53,13 @@ const actions = {
     },
 }
 
+const getters = {
+    isAuthenticated: state => state.authenticated
+}
+
 export default {
     state,
     mutations,
-    actions
+    actions,
+    getters
 }

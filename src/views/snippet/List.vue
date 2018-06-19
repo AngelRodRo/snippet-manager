@@ -1,11 +1,15 @@
 <template>
     <div>
-        <button @click="showRegister">
-        <Snippet
-            :key="snippet.id"
-            v-for="snippet in snippets"
-            :snippet="snippet"
-        />
+        <button class="btn btn-primary" @click="showRegister">New Snippet</button>
+        <br>
+        <br>
+        <div class="row" >
+            <Snippet
+                :key="snippet.id"
+                v-for="snippet in snippets"
+                :snippet="snippet"
+            />
+        </div>
     </div>
 </template>
 <script>
@@ -15,8 +19,7 @@
     export default {
         name: "SnippetList",
         components: {
-            Snippet,
-            RegisterForm
+            Snippet
         },
         computed: {
             ...mapGetters({
@@ -28,7 +31,7 @@
         },
         methods: {
             showRegister() {
-                
+                this.$router.push({ path: "/snippet-register" })
             }
         }
     }

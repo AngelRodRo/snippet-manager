@@ -10,6 +10,6 @@ export default {
         return Vue.http.get(`${HOST}/api/snippet`, payload).then(response => response.data);
     },
     create(credentials) {
-        return Vue.http.post(`${HOST}/api/snippet`, credentials);
+        return Vue.http.post(`${HOST}/api/snippet`, credentials).then(response => response.data);
     }
 }

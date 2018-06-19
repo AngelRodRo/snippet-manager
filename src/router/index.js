@@ -37,7 +37,7 @@ export default new Router({
             }
         },
         {
-            path: "/snippet/register",
+            path: "/snippet-register",
             component: SnippetRegisterView,
             name: "snippetRegisterView",
             meta: {
