@@ -14,6 +14,6 @@ export default {
             .then(response => response.data);
     },
     getOne(id) {
-        return Vue.http.get(`${HOST}/author/${id}`);
+        return Vue.http.get(`${HOST}/author/${id}`).then(response => response.data);
     }
 }

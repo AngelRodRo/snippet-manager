@@ -20,59 +20,48 @@ Vue.use(VueLazyload);
 /* eslint-disable no-unused-vars */
 const bus = new Vue({});
 
-
-// router.beforeEach((to, from, next) => {
-//     // Set Page Title
-//     document.title = `${to.meta.title}`;
-//     // Evaluate subdomain client if not filled re-direct to /find-team
-
-//     // Authentication
-//     if (!to.meta.requiresAuth) {
-//         if (to.meta.checkAuth) {
-//             if (VueCookie.get("know_user") && VueCookie.get("know_auth")) {
-//                 next({ path: "/" });
-//             }
-//         }
-//         next();
-//     } else {
-//         store.dispatch("isAuthenticated")
-//             .then((isAuth) => {
-//                 if (isAuth) {
-//                     const userRoles = store.getters.userRoles;
-//                     const routeRoles = to.meta.roles;
-//                     const isEnabled = _.intersection(userRoles, routeRoles).length;
-
-//                     if (isEnabled) {
-//                         // This logout action must be called from a view
-//                         if (to.path === "/logout") {
-//                             store.dispatch("logout");
-//                         }
-//                         next();
-//                     }
-//                 } else {
-//                     next({ path: "/login", query: { redirect: to.fullPath } });
-//                 }
-//             });
-//     }
-// });
+router.beforeEach((to, from, next) => {
+    // Set Page Title
+    document.title = `${to.meta.title}`;
+    // Evaluate subdomain client if not filled re-direct to /find-team
+    if (to.path === "/") {
+        store.dispatch("isAuthenticated")
+            .then(() => {
+                next();
+            });
+    }
+    
+    // Authentication
+    if (!to.meta.requiresAuth) {
+        if (to.meta.checkAuth) {
+            if (VueCookie.get("snip_user") && VueCookie.get("snip_auth")) {
+                next({ path: "/" });
+            }
+        }
+        next();
+    } else {
+        store.dispatch("isAuthenticated")
+            .then((isAuth) => {
+                if (isAuth) {
+                    next();
+                } else {
+                    next({ path: "/login", query: { redirect: to.fullPath } });
+                }
+            });
+    }
+});
 
 // HTTP INTERCEPTOR
-// const interceptors = function (request, next) {
-//     if (!request.params.cache) {
-//         request.headers.set("Cache-Control", "no-cache, no-store");
-//         request.url += `${request.url.indexOf("?") > 0 ? "&" : "?"}cb=${new Date().getTime()}`;
-//     }
-//     next((response) => {
-//         // continue to next interceptor
-//         if (response.status === 401) {
-//             store.commit("DESELECT_PROJECT_ITEMS");
-//             _.delay(() => {
-//                 router.push({ name: "loginView" });
-//             }, 600);
-//         }
-//     });
-// };
-// Vue.http.interceptors.push(interceptors);
+const interceptors = function (request, next) {
+    if (!request.params.cache) {
+        request.headers.set("Cache-Control", "no-cache, no-store");
+        request.url += `${request.url.indexOf("?") > 0 ? "&" : "?"}cb=${new Date().getTime()}`;
+    }
+    next((response) => {
+        // continue to next interceptor
+    });
+};
+Vue.http.interceptors.push(interceptors);
 
 // sync the router with the vuex store.
 // this registers `store.state.route`

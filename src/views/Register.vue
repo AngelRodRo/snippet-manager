@@ -1,25 +1,25 @@
 <template>
-    <form action="">
-        <div>
+    <div class="container">
+        <div class="form-group">
             <label for="">First name</label>
-            <input v-model="author.firstName" type="text">
+            <input class="form-control" v-model="author.firstName" type="text">
         </div>
-        <div>
+        <div class="form-group">
             <label for="">Last name</label>
-            <input v-model="author.lastName" type="text">
+            <input class="form-control" v-model="author.lastName" type="text">
         </div>
-        <div>
+        <div class="form-group">
             <label for="">Email</label>
-            <input v-model="author.email" type="email">
+            <input class="form-control" v-model="author.email" type="email">
         </div>
-        <div>
+        <div class="form-group">
             <label for="">Password</label>
-            <input v-model="author.password" type="password">
+            <input class="form-control" v-model="author.password" type="password">
         </div>
-        <div>
-            <input @click="registerAuthor" type="button" value="Register">
+        <div class="form-group">
+            <button class="btn btn-primary" @click="registerAuthor" type="button">Register</button>
         </div>
-    </form>
+    </div>
 </template>
 <script>
     import { mapActions } from "vuex"
@@ -41,8 +41,8 @@
             }),
             async registerAuthor() {
                 const payload = this.author;
-                debugger
                 await this.createAuthor(payload);
+                this.$router.push({ path: "/" })
             }
         }
     }

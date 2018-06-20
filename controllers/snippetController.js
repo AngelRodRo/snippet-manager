@@ -7,23 +7,25 @@ const fse = require("fs-extra")
 module.exports = {
     async create(req, res) {
         try {
-            const { name, github } = req.body
+            const { name, repository, description } = req.body
             const { author } = req.headers
+
             const snippet = await Snippet.create({
                 name,
-                github,
-                authorId: author._id
+                repository,
+                description,
+                author: author._id
             })
+
             return res.json(snippet)
         } catch (error) {
             return res.status(500).send(error)
         }
-        
     },
     async list(req, res) {
         try {
             const { name } = req.query
-            const snippets = await Snippet.find({ name: new RegExp(name, "i") })
+            const snippets = await Snippet.find({ name: new RegExp(name, "i") }).populate("author").exec();
             return res.json(snippets)
         } catch (error) {
             return res.status(500).send(error)            

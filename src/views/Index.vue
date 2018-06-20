@@ -1,19 +1,7 @@
 <template>
     <div>
-        <div>
-            <ul class="nav">
-                <li class="nav-item">
-                    <router-link to="/" class="nav-link">
-                        Home
-                    </router-link>
-                </li>
-                <li v-if="!isAuthenticated" class="nav-item">
-                    <router-link  to="/login" class="nav-link">
-                        Login
-                    </router-link>
-                </li>
-            </ul>
-        </div>
+        <Navigation />
+        <br>
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -21,11 +9,10 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">@</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="Search a snippet..." >
+                        <input type="text" v-model="query" class="form-control" placeholder="Search a snippet..." >
                     </div>
                 </div>
             </div>
-            
             <snippet-list />
         </div>
     </div>
@@ -33,17 +20,30 @@
 </template>
 <script>
     import SnippetList from "./snippet/List";
-    import { mapGetters } from 'vuex';
+    import Navigation from "../components/Navigation";
+
+    import { mapGetters, mapActions } from 'vuex';
 
     export default {
         name: "Index",
         components: {
-            SnippetList
+            SnippetList,
+            Navigation
+        },
+        data() {
+            return {
+                query: ""
+            }
         },
         computed:{
             ...mapGetters({
                 isAuthenticated: "isAuthenticated"
             })
+        },
+        watch: {
+            query(val) {
+                this.$store.dispatch("listSnippets", val);
+            }
         }
     }
 </script>

@@ -11,10 +11,10 @@ const state = {
 }
 
 const mutations = {
-    AUTH_SUCCESS(_state, { token, id }) {
+    AUTH_SUCCESS(_state, { token, _id }) {
         VueCookie.delete("snip_public");
-        VueCookie.set("snip_auth", token, { expires: `30000s` });
-        VueCookie.set("snip_user", id, { expires: `30000s` });
+        VueCookie.set("snip_auth", token, { expires: `3000000000s` });
+        VueCookie.set("snip_user", _id, { expires: `300000000s` });
 
         Vue.http.headers.common.Authorization = token;
 
@@ -30,26 +30,57 @@ const mutations = {
     },
     SET_USER(_state, response) {
         _state.user = response;
+    },
+    AUTH_ENABLED(state, value) {
+        state.authenticated = value;
+    },
+    AUTH_LOGOUT(_state, redirect = true) {
+        _state.authenticated = false;
+        _state.user = null;
+        _state.messages = "";
+
+        VueCookie.delete("snip_auth");
+        VueCookie.delete("snip_user");
     }
 }
 
 const actions = {
-    login({ commit, dispatch }, credentials) {
-        debugger
-        return authorDS.login(credentials)
-            .then((response) => {
-                const userId = response._id;
-                commit("AUTH_SUCCESS", response);
-                commit("SET_USER", response);
-            }, (error) => {
-                commit("SET_LOGIN_STATUS", error.data.error);
-            });
-    },
-    getUser({ commit }, id) {
-        return authorDS.getOne(id).then((response) => {
+    async login({ commit, dispatch }, credentials) {
+        try {
+            const response = await authorDS.login(credentials)
+            const userId = response._id;
+            commit("AUTH_SUCCESS", response);
             commit("SET_USER", response);
-            return response;
-        });
+        } catch (error) {
+            commit("SET_LOGIN_STATUS", error.data.error);
+        }
+    },
+    async getUser({ commit }, id) {
+        const response = await authorDS.getOne(id);
+        commit("SET_USER", response);
+        return response;
+    },
+    async isAuthenticated({ dispatch, commit }) {
+        const id = VueCookie.get("snip_user");
+
+        if (!VueCookie.get("snip_auth")) {
+            commit("AUTH_LOGOUT");
+            return false;
+        }
+
+        Vue.http.headers.common.Authorization = VueCookie.get("snip_auth");
+
+        try {
+            const response = await authorDS.getOne(id)
+            commit("SET_USER", response);
+            commit("AUTH_ENABLED", true);
+        } catch (error) {
+            if (error.status === 401 && (VueCookie.delete("snip_auth") && VueCookie.delete("snip_user"))) {
+                VueCookie.delete("snip_auth");
+                VueCookie.delete("snip_user");
+             }
+            return false;
+        }
     },
 }
 

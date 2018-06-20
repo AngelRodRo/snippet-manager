@@ -8,6 +8,10 @@
             <label>Repository</label>
             <input class="form-control" v-model="snippet.repository" type="text" />
         </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control" v-model="snippet.description" name="" id="" cols="30" rows="10"></textarea>
+        </div>
         <div>
             <button class="btn btn-primary" @click="register">Create</button>
         </div>
@@ -22,7 +26,8 @@
             return {
                 snippet: {
                     name: "",
-                    repository: ""
+                    repository: "",
+                    description: ""
                 }
             }
         },
@@ -31,8 +36,8 @@
                 createSnippet: "createSnippet"
             }),
             async register() {
-                const snippet = this.snippet;
-                await this.createSnippet(snippet);
+                const snippet = this.snippet
+                await this.createSnippet(snippet)
                 this.$router.push({ path: "/" })
             }
         }

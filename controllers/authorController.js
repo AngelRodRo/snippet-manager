@@ -33,9 +33,11 @@ module.exports = {
     async getOne(req, res) {
         const { id } = req.params;
         try {
-            const author = await Author.getOne({ _id: id });
-            return author;
+            const author = await Author.findOne({ _id: id })
+            delete author.password
+            return res.json(author)
         } catch (error) {
+            console.log(error)
             return res.status(500).send(error)
         }
     }
