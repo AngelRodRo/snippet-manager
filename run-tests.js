@@ -4,7 +4,7 @@ const path = require('path');
 
 // Instantiate a Mocha instance.
 const mocha = new Mocha();
-const testDir = './repo/test'
+const testDir = `./snippets/${process.argv[2]}/test`
 
 // Add each .js file to the mocha instance
 fs.readdirSync(testDir)

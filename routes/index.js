@@ -11,10 +11,11 @@ router.get("/", (req, res) => {
 })
 
 router.get("/:snippet/check", async (req, res) => {
-  const { snippet } = req.params
-  const repository = dependencies[snippet]
-  const snippetZipDir = `./${snippet}.zip`
-  fse.removeSync("repo");
+  const { snippet } = req.params;
+  const repository = dependencies[snippet];
+  const snippetZipDir = `./snippets/${snippet}.zip`;
+
+  fse.removeSync(`snippets/${snippet}`);
   if (!repository) {
     return res.status(503).send({
       message: "Not found repository"
@@ -22,8 +23,8 @@ router.get("/:snippet/check", async (req, res) => {
   }
 
   const cloneRepository = await exec(`
-      git clone ${repository} repo
-  `)
+      git clone ${repository} snippets/${snippet}
+  `);
 
   const execTest = await exec(`
       sh procedure.sh
@@ -34,7 +35,7 @@ router.get("/:snippet/check", async (req, res) => {
     return res.status(500).send("Script failed");
   }
 
-  zipFolder('./repo', snippetZipDir, function(err) {
+  zipFolder(`./snippets/${snippet}`, snippetZipDir, function(err) {
       res.download(snippetZipDir)
   });
 })
