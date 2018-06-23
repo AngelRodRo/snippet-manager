@@ -18,6 +18,7 @@ mongoose.connect("mongodb://localhost:27017/snippet-manager",(err) => {
   return console.log("connected")
 }) 
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
