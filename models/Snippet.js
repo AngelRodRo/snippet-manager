@@ -11,5 +11,4 @@ const snippetSchema = new Schema({
     description: String
 })
 
-
 module.exports = mongoose.model("Snippet", snippetSchema);

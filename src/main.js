@@ -30,7 +30,6 @@ router.beforeEach((to, from, next) => {
                 next();
             });
     }
-    
     // Authentication
     if (!to.meta.requiresAuth) {
         if (to.meta.checkAuth) {
