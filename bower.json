@@ -1,0 +1,21 @@
+{
+  "name": "snippet-manager",
+  "description": "",
+  "main": "",
+  "directory": "public/bower_components/",
+  "authors": [
+    "Angel Rodriguez"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/AngelRodRo/snippet-manager",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^4.1.1"
+  }
+}
