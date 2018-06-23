@@ -8,6 +8,14 @@ const indexRouter = require('./routes/index');
 
 const app = express();
 
+mongoose.connect("mongodb://localhost:27017/snippet-manager",(err) => {
+  if (err) {
+    console.log(err)
+  }
+  return console.log("connected")
+}) 
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
