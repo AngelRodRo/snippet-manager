@@ -3,7 +3,7 @@ import VueResource from "vue-resource";
 
 Vue.use(VueResource)
 
-const HOST = "http://localhost:3000";
+const HOST =  process.env.ROOT_HOST || "http://localhost:3000";
 
 export default {
     list(name) {
