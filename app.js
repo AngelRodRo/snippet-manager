@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const config = require("./config/index");
 
 const indexRouter = require('./routes/index');
 const snippetRouter = require("./routes/snippet")
@@ -10,10 +11,10 @@ const authorRouter = require("./routes/author")
 const mongoose = require("mongoose")
 
 const app = express();
-
-mongoose.connect("mongodb://localhost:27017/snippet-manager",(err) => {
+mongoose.connect(config.dbURI, (err) => {
   if (err) {
     console.log(err)
+    return;
   }
   return console.log("connected")
 }) 
@@ -31,7 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', indexRouter);
 
 app.get('*', function(req, res){
-  console.log("dadssa")
   res.sendFile(__dirname + '/public/index.html');
 });
 

@@ -1,0 +1,10 @@
+{
+    "port": 3000,
+    "db": {
+        "host": "ds163410.mlab.com",
+        "name": "sniptordb",
+        "port": 63410,
+        "user": "dbmaster",
+        "password": "dbmaster123456"
+    }
+}
