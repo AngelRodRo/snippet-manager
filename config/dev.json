@@ -4,7 +4,7 @@
         "host": "ds163410.mlab.com",
         "name": "sniptordb",
         "port": 63410,
-        "user": "admin",
-        "password": "ADMIN123456"
+        "user": "dbmaster",
+        "password": "dbmaster123456"
     }
 }

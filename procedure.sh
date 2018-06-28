@@ -1,10 +1,10 @@
 #!/bin/sh
-cd repo
+cd snippets/$1
 npm install
 cd ..
-OUTPUT="$(node run-tests.js)"
+OUTPUT="$(node run-tests.js $1)"
 if [[ $OUTPUT != *"0 passing"* ]]; then
-    cd repo
+    cd snippets/$1
     rm -rf node_modules/
 else 
     echo "This snippet is not correct"
