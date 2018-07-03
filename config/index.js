@@ -2,9 +2,9 @@ const dev = require("./dev");
 const local = require("./local");
 const production = require("./production");
 
-const getURI = ({ host, port, dbname, user = "", password = "" }) => {
+const getURI = ({ host, port, name, user = "", password = "" }) => {
     const uri = "mongodb://";
-    const defaultUri = `${host}:${port}/${dbname}`;
+    const defaultUri = `${host}:${port}/${name}`;
 
     const hasCredentials = user && password;
     
@@ -17,7 +17,6 @@ const getURI = ({ host, port, dbname, user = "", password = "" }) => {
 
 module.exports = (function () {
     const env = process.env.ENV;
-
     let config = {}
     let dbConfig;
 
