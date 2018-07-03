@@ -11,12 +11,7 @@ const authorRouter = require("./routes/author")
 const mongoose = require("mongoose")
 
 const app = express();
-<<<<<<< HEAD
-
-mongoose.connect("mongodb://localhost:27017/snippet-manager",(err) => {
-=======
 mongoose.connect(config.dbURI, (err) => {
->>>>>>> e1a669094f3bea429049335579e22e2e8e45dc2f
   if (err) {
     console.log(err)
     return;
@@ -24,10 +19,6 @@ mongoose.connect(config.dbURI, (err) => {
   return console.log("connected")
 }) 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e1a669094f3bea429049335579e22e2e8e45dc2f
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
