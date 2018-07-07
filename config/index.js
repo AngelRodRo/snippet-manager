@@ -4,7 +4,8 @@ const production = require("./production");
 
 const getURI = ({ host, port, name, user = "", password = "" }) => {
     const uri = "mongodb://";
-    const defaultUri = `${host}:${port}/${name}`;
+    port = port? `:${port}`: "";
+    const defaultUri = `${host}${port}/${name}`;
 
     const hasCredentials = user && password;
     
