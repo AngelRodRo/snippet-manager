@@ -106,7 +106,7 @@ if (process.env.NODE_ENV === 'production') {
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      'process.env': process.env
+      'process.env.ROOT_HOST': process.env.ROOT_HOST
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
