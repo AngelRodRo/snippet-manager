@@ -24601,35 +24601,33 @@ var actions = {
                         case 0:
                             id = __WEBPACK_IMPORTED_MODULE_4_vue_cookie___default.a.get("snip_user");
 
-                            debugger;
-
                             if (__WEBPACK_IMPORTED_MODULE_4_vue_cookie___default.a.get("snip_auth")) {
-                                _context3.next = 5;
+                                _context3.next = 4;
                                 break;
                             }
 
                             commit("AUTH_LOGOUT");
                             return _context3.abrupt("return", false);
 
-                        case 5:
+                        case 4:
 
                             __WEBPACK_IMPORTED_MODULE_3_vue__["a" /* default */].http.headers.common.Authorization = __WEBPACK_IMPORTED_MODULE_4_vue_cookie___default.a.get("snip_auth");
 
-                            _context3.prev = 6;
-                            _context3.next = 9;
+                            _context3.prev = 5;
+                            _context3.next = 8;
                             return __WEBPACK_IMPORTED_MODULE_1__api_author__["a" /* default */].getOne(id);
 
-                        case 9:
+                        case 8:
                             response = _context3.sent;
 
                             commit("SET_USER", response);
                             commit("AUTH_ENABLED", true);
-                            _context3.next = 18;
+                            _context3.next = 17;
                             break;
 
-                        case 14:
-                            _context3.prev = 14;
-                            _context3.t0 = _context3["catch"](6);
+                        case 13:
+                            _context3.prev = 13;
+                            _context3.t0 = _context3["catch"](5);
 
                             if (_context3.t0.status === 401 && __WEBPACK_IMPORTED_MODULE_4_vue_cookie___default.a.delete("snip_auth") && __WEBPACK_IMPORTED_MODULE_4_vue_cookie___default.a.delete("snip_user")) {
                                 __WEBPACK_IMPORTED_MODULE_4_vue_cookie___default.a.delete("snip_auth");
@@ -24637,12 +24635,12 @@ var actions = {
                             }
                             return _context3.abrupt("return", false);
 
-                        case 18:
+                        case 17:
                         case "end":
                             return _context3.stop();
                     }
                 }
-            }, _callee3, _this3, [[6, 14]]);
+            }, _callee3, _this3, [[5, 13]]);
         }))();
     }
 };
