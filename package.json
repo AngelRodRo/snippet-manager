@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "ENV=development node ./bin/www",
+    "dev": "ENV=local node ./bin/www",
     "build": "webpack --config webpack.config.js --watch",
     "clear-cache": "node -e 'require(\"./build/clear-cache\")()'"
   },

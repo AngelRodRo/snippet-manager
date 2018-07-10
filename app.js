@@ -11,6 +11,7 @@ const authorRouter = require("./routes/author")
 const mongoose = require("mongoose")
 
 const app = express();
+console.log(config.dbURI)
 mongoose.connect(config.dbURI, (err) => {
   if (err) {
     console.log(err)

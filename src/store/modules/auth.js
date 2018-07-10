@@ -62,7 +62,7 @@ const actions = {
     },
     async isAuthenticated({ dispatch, commit }) {
         const id = VueCookie.get("snip_user");
-
+        debugger
         if (!VueCookie.get("snip_auth")) {
             commit("AUTH_LOGOUT");
             return false;
