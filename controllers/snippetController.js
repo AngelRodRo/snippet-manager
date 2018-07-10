@@ -3,6 +3,7 @@ const exec = require("exec-then");
 const zipFolder = require('zip-folder');
 const fs = require("fs")
 const fse = require("fs-extra")
+const slug = require("slug")
 
 module.exports = {
     async create(req, res) {
@@ -12,6 +13,7 @@ module.exports = {
 
             const snippet = await Snippet.create({
                 name,
+                slug: slug(name),
                 repository,
                 description,
                 author: author._id
@@ -33,7 +35,7 @@ module.exports = {
     },
     async check(req, res) {
         const { snippet } = req.params
-        const _snippet = await Snippet.findOne({ name: snippet })
+        const _snippet = await Snippet.findOne({ slug: snippet })
         const repository = _snippet.github
 
         const snippetZipDir = `./${snippet}.zip`
