@@ -2,13 +2,13 @@ var path = require('path')
 var webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const fs = require("fs")
-const { resolve } = require("path");
+const path = require("path");
 
 module.exports = {
   entry: {
     app: [
         "babel-polyfill",
-        resolve(__dirname, "src/main.js")
+        path.resolve(__dirname, "src/main.js")
     ]
   },
   output: {
@@ -68,7 +68,7 @@ module.exports = {
       filename: "index.html",
       inject: true,
       templateContent(templateParams) {
-          const indexTemplate = fs.readFileSync(resolve(__dirname, "index.html"), "utf8");          
+          const indexTemplate = fs.readFileSync(path.resolve(__dirname, "index.html"), "utf8");          
           const tmpl = require("blueimp-tmpl");
 
           return tmpl(indexTemplate, templateParams);
@@ -91,7 +91,7 @@ module.exports = {
       filename: "index.html",
       inject: true,
       templateContent(templateParams) {
-          const indexTemplate = fs.readFileSync(resolve(__dirname, "index.html"), "utf8");
+          const indexTemplate = fs.readFileSync(path.resolve(__dirname, "index.html"), "utf8");
           const tmpl = require("blueimp-tmpl");
 
           return tmpl(indexTemplate, templateParams);
