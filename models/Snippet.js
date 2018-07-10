@@ -6,6 +6,9 @@ const snippetSchema = new Schema({
         type: String,
         required: true
     },
+    slug: {
+        type: String
+    },
     repository: String,
     author: { type: Schema.Types.ObjectId, ref: "Author" },
     description: String
