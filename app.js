@@ -6,12 +6,9 @@ const logger = require('morgan');
 const config = require("./config/index");
 
 const indexRouter = require('./routes/index');
-const snippetRouter = require("./routes/snippet")
-const authorRouter = require("./routes/author")
 const mongoose = require("mongoose")
 
 const app = express();
-console.log(config.dbURI)
 mongoose.connect(config.dbURI, (err) => {
   if (err) {
     console.log(err)
