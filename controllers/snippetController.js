@@ -1,7 +1,6 @@
 const Snippet = require("../models/Snippet");
 const exec = require("exec-then");
 const zipFolder = require('zip-folder');
-const fs = require("fs")
 const fse = require("fs-extra")
 const slug = require("slug")
 
@@ -13,7 +12,7 @@ module.exports = {
 
             const snippet = await Snippet.create({
                 name,
-                slug: slug(name),
+                slug: slug(name.toLowerCase()),
                 repository,
                 description,
                 author: author._id
