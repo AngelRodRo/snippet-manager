@@ -1,7 +1,6 @@
 const Snippet = require("../models/Snippet");
 const exec = require("exec-then");
 const zipFolder = require('zip-folder');
-const fs = require("fs")
 const fse = require("fs-extra")
 const slug = require("slug")
 
