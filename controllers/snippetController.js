@@ -12,7 +12,7 @@ module.exports = {
 
             const snippet = await Snippet.create({
                 name,
-                slug: slug(name),
+                slug: slug(name.toLowerCase()),
                 repository,
                 description,
                 author: author._id
