@@ -1,3 +1,5 @@
 node_modules/
 snippets/
-public/
+public/build.js
+public/bower_components/
+public/index.html

@@ -8,8 +8,10 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "ENV=local node ./bin/www",
-    "build": "webpack --config webpack.config.js --watch",
+    "local": "ENV=local node ./bin/www",
+    "dev": "ENV=development node ./bin/www",
+    "build": "webpack --config webpack.config.js",
+    "build-watch": "webpack --config webpack.config.js --watch",
     "clear-cache": "node -e 'require(\"./build/clear-cache\")()'"
   },
   "dependencies": {
@@ -65,5 +67,8 @@
   },
   "devDependencies": {
     "html-webpack-plugin": "^3.2.0"
-  }
+  },
+  "engines" : { 
+    "node" : ">=8.11.1" 
+  } 
 }
