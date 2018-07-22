@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button class="btn btn-primary" @click="showRegister">New Snippet</button>
+        <button class="btn btn-primary" v-if="isAunthenticated" @click="showRegister">New Snippet</button>
         <br>
         <br>
         <div class="row" >
@@ -23,7 +23,8 @@
         },
         computed: {
             ...mapGetters({
-                snippets: "getSnippets"
+                snippets: "getSnippets",
+                isAunthenticated: "isAuthenticated"
             })
         },
         beforeCreate() {
