@@ -50,6 +50,7 @@
             credentials: {
                 email: {
                     required,
+                    email,
                     minLength: minLength(4)
                 },
                 password: {
