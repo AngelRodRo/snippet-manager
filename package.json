@@ -13,7 +13,7 @@
     "build": "webpack --config webpack.config.js",
     "build-watch": "webpack --config webpack.config.js --watch",
     "clear-cache": "node -e 'require(\"./build/clear-cache\")()'",
-    "run-all": "concurrently \"npm run dev\" \"npm run build-watch\""
+    "run-all": "concurrently \"npm run local\" \"npm run build-watch\""
   },
   "dependencies": {
     "babel-core": "^6.26.0",

@@ -63,7 +63,7 @@
                 login: "login"
             }),
             async signIn() {
-                if (this.$v.$invalid) {
+                if (!this.$v.$invalid) {
                     const credentials = this.credentials;
                     await this.login(credentials);
                     this.$router.push({ path: "/" })
