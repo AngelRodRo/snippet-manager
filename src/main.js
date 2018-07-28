@@ -10,6 +10,9 @@ import VueResource from "vue-resource";
 import App from "./App";
 import store from "./store";
 import router from "./router";
+import Vuelidate from "vuelidate"
+
+Vue.use(Vuelidate)
 
 Vue.use(VueCookie);
 Vue.use(VueResource);

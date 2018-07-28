@@ -1,21 +1,40 @@
 <template>
     <div class="container">
         <div class="form-group">
-            <label for="">Email</label>
-            <input class="form-control" v-model="credentials.email" type="email">
+            <input class="form-control" 
+                placeholder="Email" 
+                v-model.trim="$v.credentials.email.$model" 
+                type="email"
+            />
+            <div v-if="$v.credentials.email.$error">
+                <div class="error" v-if="!$v.credentials.email.required">Email is required</div>
+            </div>
         </div>
         <div class="form-group">
-            <label for="">Password</label>
-            <input class="form-control" v-model="credentials.password" type="password">
+            <input 
+                class="form-control" 
+                placeholder="Password" 
+                v-model.trim="$v.credentials.password.$model" 
+                type="password"
+            />
+            <div v-if="$v.credentials.password.$error">
+                <div class="error" v-if="!$v.credentials.password.required">Password is required</div>
+            </div>
         </div>
         <div>
-            <button @click="signIn" class="btn btn-primary">Sign in</button>
-            <button @click="register" class="btn btn-primary">Register</button>
+            <button 
+                @click="signIn" 
+                :class="{ 'disabled': $v.$invalid }" 
+                :disabled="$v.$invalid"
+                class="btn btn-primary">
+                Sign in
+            </button>
         </div>
     </div>
 </template>
 <script>
     import { mapActions } from "vuex";
+    import { required, email, minLength } from "vuelidate/lib/validators"
 
     export default {
         name: "LoginView",
@@ -27,14 +46,28 @@
                 }
             }
         },
+        validations: {
+            credentials: {
+                email: {
+                    required,
+                    email,
+                    minLength: minLength(4)
+                },
+                password: {
+                    required
+                }
+            }
+        },
         methods: {
             ...mapActions({
                 login: "login"
             }),
             async signIn() {
-                const credentials = this.credentials;
-                await this.login(credentials);
-                this.$router.push({ path: "/" })
+                if (!this.$v.$invalid) {
+                    const credentials = this.credentials;
+                    await this.login(credentials);
+                    this.$router.push({ path: "/" })
+                }
             },
             register() {
                 this.$router.push({ path: "/register" })
