@@ -18,8 +18,6 @@ router.post("/update-branch", async (req, res) => {
   const resp = await exec(`
     npm run build
   `);
-
-
   res.send(JSON.stringify(resp));
 })
 
