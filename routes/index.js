@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const exec = require("exec-then");
 
 const authorRoutes = require("./author");
 const snippetRoutes = require("./snippet");
@@ -13,5 +14,14 @@ router.get("/", (req, res) => {
 router.post("/login", authorController.login);
 router.use("/author", authorRoutes);
 router.use("/snippet", snippetRoutes);
+router.post("/update-branch", async (req, res) => {
+  const resp = await exec(`
+    cd ..
+    git pull origin master
+    echo "success"
+  `);
+
+  res.send(JSON.stringify(resp));
+})
 
 module.exports = router;
