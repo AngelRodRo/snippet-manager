@@ -15,12 +15,17 @@ router.post("/login", authorController.login);
 router.use("/author", authorRoutes);
 router.use("/snippet", snippetRoutes);
 router.post("/update-branch", async (req, res) => {
-  console.log(req.body)
-  const resp = await exec(`
-    npm run build
-  `);
-  
-  res.send(JSON.stringify(resp));
+  const {payload} = req.body;
+  const ref = JSON.parse(payload).ref;
+  const isMaster = ref.includes("master");
+  console.log(ref);
+  if (isMaster) {
+    const resp = await exec(`
+      npm run build
+    `);
+    return res.send(JSON.stringify(resp));
+  }
+  return res.send(0);
 })
 
 module.exports = router;
