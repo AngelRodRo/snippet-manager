@@ -25,7 +25,7 @@ router.post("/update-branch", async (req, res) => {
     return res.send(JSON.stringify(resp));
   }
 
-  return res.send(0);
+  return res.send(200);
 })
 
 module.exports = router;
