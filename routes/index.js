@@ -15,6 +15,7 @@ router.post("/login", authorController.login);
 router.use("/author", authorRoutes);
 router.use("/snippet", snippetRoutes);
 router.post("/update-branch", async (req, res) => {
+  console.log(req.body)
   const resp = await exec(`
     npm run build
   `);
