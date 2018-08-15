@@ -16,9 +16,8 @@ router.use("/author", authorRoutes);
 router.use("/snippet", snippetRoutes);
 router.post("/update-branch", async (req, res) => {
   const resp = await exec(`
-    ls
     git pull origin master
-    echo "success"
+    npm run build
   `);
 
   res.send(JSON.stringify(resp));
