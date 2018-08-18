@@ -13,9 +13,9 @@ const sniptor = {
 }
 
 const git = {
-    async clone(repository) {
+    async clone(snippet, repository) {
         return await exec(`
-            git clone ${repository} repo
+            git clone ${repository} snippets/${snippet}
         `)
     }
 }
@@ -49,15 +49,15 @@ const list = async (req, res) => {
     }
 };
 
-const validate = async (repository) => {
-    fse.removeSync("repo");
+const validate = async (snippet, repository) => {
+    fse.removeSync(`snippets/${snippet}`);
     if (!repository) {
         return res.status(503).send({
             message: "Repository not found"
         });
     }
 
-    await git.clone(repository);
+    await git.clone(snippet, repository);
     const resTest = await sniptor.procedure();
 
     if (resTest.err) {
@@ -67,24 +67,24 @@ const validate = async (repository) => {
 };
 
 const generate = async (snippet, repository) => {
-    const snippetZipDir = `./${snippet}.zip`
+    const snippetZipDir = `./snippets/${snippet}.zip`
     const isValid = await validate(snippet, repository);
     if (!isValid) {
         return false;
     }
 
     await new Promise((resolve, reject) => {
-        zipFolder('./repo', snippetZipDir, resolve);
+        zipFolder(`./snippets/${snippet}`, snippetZipDir, resolve);
     })
     return true;
 }
 
 const check = async (req, res) => {
     const { snippet } = req.params
-    const snippetZipDir = `./${snippet}.zip`
+    const snippetZipDir = `./snippets/${snippet}.zip`
     debugger
     const _snippet = await Snippet.findOne({ slug: snippet })
-    const repository = _snippet.github
+    const {repository} = _snippet
     const resp = await generate(snippet, repository);
     if (resp) {
         return res.download(snippetZipDir)
