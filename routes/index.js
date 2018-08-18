@@ -20,7 +20,7 @@ router.post("/update-branch", async (req, res) => {
   const isMaster = ref.includes("master");
   if (isMaster) {
     const resp = await exec(`
-      npm run build
+      sh start.sh
     `);
     return res.send(JSON.stringify(resp));
   }
