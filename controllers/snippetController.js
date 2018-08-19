@@ -84,6 +84,7 @@ const check = async (req, res) => {
     const _snippet = await Snippet.findOne({ slug: snippet })
     const {repository} = _snippet
     const resp = await generate(snippet, repository);
+    console.log(resp);
     if (resp) {
         return res.download(snippetZipDir)
     }
