@@ -4,7 +4,6 @@ npm install
 cd ..
 OUTPUT="$(node run-tests.js $1)"
 if [[ $OUTPUT != *"0 passing"* ]]; then
-    cd snippets/$1
     rm -rf node_modules/
 else 
     echo "This snippet is not correct"

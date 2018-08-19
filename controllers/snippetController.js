@@ -5,9 +5,9 @@ const fse = require("fs-extra")
 const slug = require("slug")
 
 const sniptor = {
-    async procedure() {
+    async procedure(snippet) {
        return await exec(`
-            sh procedure.sh
+            sh procedure.sh ${snippet}
         `);
     }
 }
