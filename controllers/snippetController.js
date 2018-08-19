@@ -59,6 +59,7 @@ const validate = async (snippet, repository) => {
 
     await git.clone(snippet, repository);
     const resTest = await sniptor.procedure();
+    console.log(resTest.err)
     if (resTest.err) {
         return false;
     }
