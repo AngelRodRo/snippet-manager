@@ -1,6 +1,6 @@
 {
     "watch": ["server", "client"],
-    "ignore_watch" : ["node_modules", "public"],
+    "ignore_watch" : ["node_modules", "public", "snippets"],
     "watch_options": {
       "followSymlinks": false
     }

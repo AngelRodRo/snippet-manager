@@ -81,11 +81,9 @@ const generate = async (snippet, repository) => {
 const check = async (req, res) => {
     const { snippet } = req.params
     const snippetZipDir = `./snippets/${snippet}.zip`
-    debugger
     const _snippet = await Snippet.findOne({ slug: snippet })
     const {repository} = _snippet
     const resp = await generate(snippet, repository);
-    console.log(resp)
     if (resp) {
         return res.download(snippetZipDir)
     }
