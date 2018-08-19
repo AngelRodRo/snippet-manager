@@ -59,7 +59,6 @@ const validate = async (snippet, repository) => {
 
     await git.clone(snippet, repository);
     const resTest = await sniptor.procedure();
-
     if (resTest.err) {
         return false;
     }
@@ -86,6 +85,7 @@ const check = async (req, res) => {
     const _snippet = await Snippet.findOne({ slug: snippet })
     const {repository} = _snippet
     const resp = await generate(snippet, repository);
+    console.log(resp)
     if (resp) {
         return res.download(snippetZipDir)
     }
