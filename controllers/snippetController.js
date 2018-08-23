@@ -7,7 +7,7 @@ const slug = require("slug")
 const sniptor = {
     async procedure(snippet) {
        return await exec(`
-            sh procedure.sh ${snippet}
+            bash procedure.sh ${snippet}
         `);
     }
 }
