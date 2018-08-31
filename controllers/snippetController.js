@@ -25,6 +25,13 @@ const create = async (req, res) => {
         const { name, repository, description } = req.body
         const { author } = req.headers
 
+        const isValid = await validate(name, repository);
+        if (!isValid) {
+            return res.status(400).send({
+                message: "Snippet tests fail suddenly, please check it before register"
+            });
+        }
+    
         const snippet = await Snippet.create({
             name,
             slug: slug(name.toLowerCase()),
@@ -59,7 +66,6 @@ const validate = async (snippet, repository) => {
 
     await git.clone(snippet, repository);
     const resTest = await sniptor.procedure();
-    console.log(resTest.err)
     if (resTest.err) {
         return false;
     }
@@ -85,7 +91,6 @@ const check = async (req, res) => {
     const _snippet = await Snippet.findOne({ slug: snippet })
     const {repository} = _snippet
     const resp = await generate(snippet, repository);
-    console.log(resp);
     if (resp) {
         return res.download(snippetZipDir)
     }
